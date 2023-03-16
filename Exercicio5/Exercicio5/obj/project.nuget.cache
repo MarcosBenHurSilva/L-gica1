@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LFTCWfvN3yhIxg4a6ejQ3oah5xNxcuMlT0CsaY0fQ2HsKtRLl7gylhsvWZltaFQb/xU26XlI1QOz9WqoD4Ltig==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\prova2\\TessteLogica\\Exercicio5\\Exercicio5\\Exercicio5.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\6.0.13\\microsoft.netcore.app.host.win-x86.6.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
