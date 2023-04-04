@@ -1,0 +1,7 @@
+public void ValidarDataFimParticipacao(DateTime dataInicio, DateTime? dataFim)
+{
+    if (dataFim.HasValue && dataFim < dataInicio)
+    {
+        throw new Exception("Data de Fim da Participação deve ser maior ou igual a Data de Início da Participação.");
+    }
+}

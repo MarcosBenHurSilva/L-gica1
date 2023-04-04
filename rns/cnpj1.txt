@@ -1,0 +1,155 @@
+public class Cliente {
+    private string cpfCnpj;
+    
+    public string CPFCNPJ {
+        get { return cpfCnpj; }
+        set {
+            if (ValidarCPFCNPJ(value)) {
+                cpfCnpj = value;
+            } else {
+                throw new Exception("CPF/CNPJ inválido.");
+            }
+        }
+    }
+    
+    // Método para validar CPF/CNPJ
+    private bool ValidarCPFCNPJ(string cpfCnpj) {
+        if (string.IsNullOrWhiteSpace(cpfCnpj)) {
+            return false;
+        }
+        
+        // Remover caracteres especiais
+        cpfCnpj = cpfCnpj.Trim();
+        cpfCnpj = cpfCnpj.Replace(".", "").Replace("-", "").Replace("/", "");
+        
+        // Verificar se possui 11 ou 14 caracteres
+        if (cpfCnpj.Length != 11 && cpfCnpj.Length != 14) {
+            return false;
+        }
+        
+        // Verificar se todos os caracteres são números
+        if (!cpfCnpj.All(char.IsDigit)) {
+            return false;
+        }
+        
+        // Validar CPF
+        if (cpfCnpj.Length == 11) {
+            int[] pesos = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string baseCalculo = cpfCnpj.Substring(0, 9);
+            int soma = 0;
+            
+            for (int i = 0; i < 9; i++) {
+                soma += int.Parse(baseCalculo[i].ToString()) * pesos[i];
+            }
+            
+            int resto = soma % 11;
+            int dv1 = resto < 2 ? 0 : 11 - resto;
+            
+            if (dv1 != int.Parse(cpfCnpj[9].ToString())) {
+                return false;
+            }
+            
+            soma = 0;
+            baseCalculo += dv1.ToString();
+            pesos = new int[] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            
+            for (int i = 0; i < 10; i++) {
+                soma += int.Parse(baseCalculo[i].ToString()) * pesos[i];
+            }
+            
+            resto = soma % 11;
+            int dv2 = resto < 2 ? 0 : 11 - resto;
+            
+            if (dv2 != int.Parse(cpfCnpj[10].ToString())) {
+                return false;
+            }
+        }
+        
+        // Validar CNPJ
+        if (cpfCnpj.Length == 14) {
+            int[] pesos = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string baseCalculo = cpfCnpj.Substring(0, 12);
+            int soma = 0;
+            
+            for (int i = 0; i < 12; i++) {
+                soma += int.Parse(baseCalculo[i].ToString()) * pesos[i];
+            }
+            
+            int resto = soma % 11;
+            int dv1 = resto < 2 ? 0 : 11 - resto;
+            
+            if (dv1 != int.Parse(cpfCnpj[12].ToString())) {
+                return false;
+            }
+=====================================================================================
+
+public class Cliente {
+    private string cnpj;
+    
+    public string CNPJ {
+        get { return cnpj; }
+        set {
+            if (ValidarCNPJ(value)) {
+                cnpj = value;
+            } else {
+                throw new Exception("CNPJ inválido.");
+            }
+        }
+    }
+    
+    // Método para validar CNPJ
+    private bool ValidarCNPJ(string cnpj) {
+        if (string.IsNullOrWhiteSpace(cnpj)) {
+            return false;
+        }
+        
+        // Remover caracteres especiais
+        cnpj = cnpj.Trim();
+        cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
+        
+        // Verificar se possui 14 caracteres
+        if (cnpj.Length != 14) {
+            return false;
+        }
+        
+        // Verificar se todos os caracteres são números
+        if (!cnpj.All(char.IsDigit)) {
+            return false;
+        }
+        
+        // Verificar dígito verificador
+        int[] pesos = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        string baseCalculo = cnpj.Substring(0, 12);
+        int soma = 0;
+        
+        for (int i = 0; i < 12; i++) {
+            soma += int.Parse(baseCalculo[i].ToString()) * pesos[i];
+        }
+        
+        int resto = soma % 11;
+        int dv1 = resto < 2 ? 0 : 11 - resto;
+        
+        if (dv1 != int.Parse(cnpj[12].ToString())) {
+            return false;
+        }
+        
+        soma = 0;
+        baseCalculo += dv1.ToString();
+        pesos = new int[] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        
+        for (int i = 0; i < 13; i++) {
+            soma += int.Parse(baseCalculo[i].ToString()) * pesos[i];
+        }
+        
+        resto = soma % 11;
+        int dv2 = resto < 2 ? 0 : 11 - resto;
+        
+        if (dv2 != int.Parse(cnpj[13].ToString())) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // Restante da classe
+}

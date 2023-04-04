@@ -1,0 +1,7 @@
+public static void ValidarSocioProprioCliente(Cliente cliente, Socio socio)
+{
+    if (cliente.CpfCnpj.Equals(socio.CpfCnpj))
+    {
+        throw new Exception("Um sócio não pode ser sócio dele mesmo.");
+    }
+}

@@ -1,0 +1,35 @@
+public class SocioBusiness
+{
+    public void ValidarCamposObrigatorios(Socio socio)
+    {
+        if (socio.TipoPessoa == TipoPessoa.Fisica)
+        {
+            if (socio.DataFundacao != null)
+            {
+                socio.DataFundacao = null;
+            }
+
+            if (string.IsNullOrEmpty(socio.EstadoCivil))
+            {
+                throw new Exception(string.Format("O campo {0} é obrigatório para Tipo Pessoa Sócio {1}.", "Estado Civil", "Física"));
+            }
+        }
+        else if (socio.TipoPessoa == TipoPessoa.Juridica)
+        {
+            if (socio.DataFundacao == null)
+            {
+                throw new Exception(string.Format("O campo {0} é obrigatório para Tipo Pessoa Sócio {1}.", "Data Fundação", "Jurídica"));
+            }
+
+            if (!string.IsNullOrEmpty(socio.EstadoCivil))
+            {
+                socio.EstadoCivil = null;
+            }
+
+            if (!string.IsNullOrEmpty(socio.RegimeCasamento))
+            {
+                socio.RegimeCasamento = null;
+            }
+        }
+    }
+}

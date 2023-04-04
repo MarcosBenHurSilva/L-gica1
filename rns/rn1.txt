@@ -1,0 +1,36 @@
+rn 1
+
+public static class ValidadorCliente
+{
+    public static bool ValidarInclusaoCliente(Cliente cliente, Socio socio)
+    {
+        if (cliente == null)
+        {
+            throw new ArgumentNullException(nameof(cliente));
+        }
+
+        if (socio == null)
+        {
+            throw new ArgumentNullException(nameof(socio));
+        }
+
+        if (cliente.TipoPessoa != TipoPessoa.Juridica)
+        {
+            return false;
+        }
+
+        return true;
+    }
+}
+================================================================
+Cliente cliente = ObterDadosClienteDoFormulario();
+Socio socio = ObterDadosSocioDoFormulario();
+
+if (ValidadorCliente.ValidarInclusaoCliente(cliente, socio))
+{
+    // Realiza a inclusão do cliente e do sócio no banco de dados
+}
+else
+{
+    MostrarMensagemDeErro("Só é possível adicionar sócios para clientes jurídicos.");
+}

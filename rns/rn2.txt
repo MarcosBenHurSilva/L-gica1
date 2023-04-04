@@ -1,0 +1,57 @@
+public static class SocioValidationRules
+{
+    public static bool CanAddSocioToCliente(Pessoa cliente, Pessoa socio)
+    {
+        if (cliente.TipoPessoa != TipoPessoa.Juridica)
+        {
+            return false; // Cliente não é pessoa jurídica, não pode adicionar sócio
+        }
+
+        if (!IsValidCpfCnpj(socio.CpfCnpj, socio.TipoPessoa))
+        {
+            return false; // CPF/CNPJ inválido para o tipo de pessoa do sócio
+        }
+
+        return true; // Todas as regras foram satisfeitas, pode adicionar o sócio
+    }
+
+    private static bool IsValidCpfCnpj(string cpfCnpj, TipoPessoa tipoPessoa)
+    {
+        // Verifica se o CPF/CNPJ é válido para o tipo de pessoa
+        if (tipoPessoa == TipoPessoa.Fisica)
+        {
+            return CpfValidator.IsValid(cpfCnpj);
+        }
+        else if (tipoPessoa == TipoPessoa.Juridica)
+        {
+            return CnpjValidator.IsValid(cpfCnpj);
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+public enum TipoPessoa
+{
+    Fisica,
+    Juridica
+}
+
+public class Pessoa
+{
+    public TipoPessoa TipoPessoa { get; set; }
+    public string CpfCnpj { get; set; }
+    // outros campos
+}
+
+public static class CpfValidator
+{
+    // Implementação da validação de CPF
+}
+
+public static class CnpjValidator
+{
+    // Implementação da validação de CNPJ
+}

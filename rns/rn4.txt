@@ -1,0 +1,11 @@
+public static void ValidarDataInicioParticipacao(DateTime dataInicioParticipacao, bool inclusao)
+{
+    if (inclusao && dataInicioParticipacao > DateTime.Now)
+    {
+        throw new Exception("Data de Início da Participação deve ser menor ou igual a data atual.");
+    }
+    else if (!inclusao)
+    {
+        throw new Exception("Não é permitido alterar a Data de Início da Participação.");
+    }
+}
